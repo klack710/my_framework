@@ -7,6 +7,8 @@
     <title>Obachan</title>
 </head>
 <body>
-元気です！
+<p>元気です！</p>
+<p>{{ obavar }}</p>
+<p>{{ obavar obavar obavar }}</p>
 </body>
 </html>
