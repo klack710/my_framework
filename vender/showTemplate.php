@@ -5,9 +5,6 @@ function showTemplate($path) {
 //テンプレートと、置換する配列読み込み
 $template = file_get_contents($path);
 $get_array = $_GET;
-//テンプレ表示
-echo $template;
-
 
 foreach($get_array as $key => $item) {
     // {{ }}内のkeyの文字列を、itemに変える
