@@ -1,5 +1,5 @@
 <?php
-require 'vender/showTemplate.php';
+require_once 'vender/showTemplate.php';
 
 if ($uri === '/obachan') {
     $path = 'answer/obachan.php';
