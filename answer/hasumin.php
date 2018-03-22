@@ -7,6 +7,8 @@
     <title>Hasumin</title>
 </head>
 <body>
-Androidラヴ
+<p>Androidラヴ</p>
+<p>{{ hasvar }}</p>
+<p>{{ hasvar hasvar hasvar }}</p>
 </body>
 </html>

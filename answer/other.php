@@ -7,6 +7,12 @@
     <title>Other</title>
 </head>
 <body>
-誰？
+<p>誰？</p>
+<p>{{ otherbar }}</p>
+<p>{{otherbar}}</p>
+<p>{{ yyy }}</p>
+<p>{{ yyy otherbar xxx}}</p>
+<p>{{ otherbar otherbarx xxx otherbar }}</p>
+
 </body>
 </html>

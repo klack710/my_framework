@@ -1,8 +1,11 @@
 <?php
+require_once 'vender/showTemplate.php';
+
 if ($uri === '/obachan') {
-    include 'answer/obachan.php';
+    $path = 'answer/obachan.php';
 } else if ($uri === '/hasumin') {
-    include 'answer/hasumin.php';
+    $path = 'answer/hasumin.php';
 } else {
-    include 'answer/other.php';
+    $path = 'answer/other.php';
 }
+showTemplate($path);
