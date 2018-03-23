@@ -1,5 +1,4 @@
 <?php
-require_once 'vendor/showTemplate.php';
 
 if ($uri === '/obachan') {
     include 'controller/obachanController.php';

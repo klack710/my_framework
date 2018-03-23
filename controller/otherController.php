@@ -1,5 +1,10 @@
 <?php
 // (TODO)コントローラー継承したい
-require_once 'vendor/showTemplate.php';
+require_once 'vendor/replaceTemplate.php';
 
-showTemplate('answer/other.php');
+//テンプレート読み込み
+$template = file_get_contents('answer/other.php');
+//テンプレートを置換
+$html = replace_template($template);
+
+echo $html;
