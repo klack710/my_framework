@@ -1,11 +1,10 @@
 <?php
-require_once 'vender/showTemplate.php';
 
 if ($uri === '/obachan') {
-    $path = 'answer/obachan.php';
+    include 'controller/obachanController.php';
 } else if ($uri === '/hasumin') {
-    $path = 'answer/hasumin.php';
+    include 'controller/hasuminController.php';
 } else {
-    $path = 'answer/other.php';
+    include 'controller/otherController.php';
 }
-showTemplate($path);
+

@@ -1,8 +1,6 @@
 <?php
 
-function showTemplate($path) {
-    //テンプレートと、置換する配列読み込み
-    $template = file_get_contents($path);
+function replace_template($template) {
     $get_array = $_GET;
 
     foreach($get_array as $key => $item) {
@@ -18,6 +16,6 @@ function showTemplate($path) {
     $replacement = '';
     $template = preg_replace($pattern, $replacement , $template);
 
-    //テンプレ表示
-    echo $template;
+    //置換後のファイルを返す
+    return $template;
 }
