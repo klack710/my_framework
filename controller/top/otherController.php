@@ -1,10 +1,10 @@
 <?php
 namespace controller\top;
 
-use controller\baseController;
-require_once 'controller/baseController.php';
+use controller\BaseController;
+require_once 'controller/BaseController.php';
 
-class otherController extends baseController
+class OtherController extends BaseController
 {
     const HTML_PATH = 'answer/other.html';
 

@@ -1,7 +1,7 @@
 <?php
 namespace controller;
 
-abstract class baseController
+abstract class BaseController
 {
     abstract public function action();
 

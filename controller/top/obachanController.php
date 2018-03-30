@@ -1,10 +1,10 @@
 <?php
 namespace controller\top;
 
-use controller\baseController;
-require_once 'controller/baseController.php';
+use controller\BaseController;
+require_once 'controller/BaseController.php';
 
-class obachanController extends baseController
+class ObachanController extends BaseController
 {
     const HTML_PATH = 'answer/obachan.html';
 
