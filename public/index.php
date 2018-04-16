@@ -1,4 +1,4 @@
 <?php
 // echo phpinfo();
 
-include 'route/route.php';
+include '../route/route.php';
