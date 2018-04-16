@@ -4,14 +4,14 @@
 action();
 
 /**
- * URIに応じてコントローラーのメソッドを動かす
+ * URIに応じてコントローラーのacitonを動かす
  */
 function action() {
     $uri = getUriWithoutQuery();
-    list($file_full_path, $method_name) = getControllerPathAndMethodName($uri);
+    $file_full_path = getControllerPath($uri);
 
-    // コントローラーのメソッドを動かす
-    controllerAction($file_full_path, $method_name);
+    // コントローラーのactionを動かす
+    controllerAction($file_full_path);
 }
 
 /**
@@ -29,44 +29,41 @@ function getUriWithoutQuery() {
 
 /**
  * URIとルートファイルから、
- * 動かすコントローラーとメソッドを取得する
+ * 動かすコントローラーを取得する
  *
  * @param String $uri URI
  * @return String $file_full_path コントローラーの書かれたファイルパス
- * @return String $method_name コントローラーで動かすメソッド名
  */
-function getControllerPathAndMethodName($uri) {
+function getControllerPath($uri) {
     // route.phpから、routesの情報を取得する
     $routes = [];
-    $routes_404 = ['/controller/top/OtherController', 'action'];
+    $routes_404 = '/controller/top/OtherController';
     require '../route/route.php';
 
-    // routesから、コントローラーのパスとメソッド名を取得する
-    if (array_key_exists($uri, $routes) && isset($routes[$uri][0]) && isset($routes[$uri][1])) {
-        $file_full_path = $routes[$uri][0];
-        $method_name    = $routes[$uri][1];
-    } elseif (isset($routes_404[0]) && isset($routes_404[1])) {
-        $file_full_path = $routes_404[0];
-        $method_name    = $routes_404[1];
+    // routesから、コントローラーのパスを取得する
+    if (array_key_exists($uri, $routes) && isset($routes[$uri][0])) {
+        $file_full_path = $routes[$uri];
+    } elseif (isset($routes_404[0])) {
+        $file_full_path = $routes_404;
     } else {
         //(TODO) 404系エラー
         echo '404 not found';
         exit(1);
     }
-    return [$file_full_path, $method_name];
+    return $file_full_path;
 }
 
 
 /**
- * コントローラーをインスタンス化し、メソッドを動かす
+ * コントローラーをインスタンス化し、actionを動かす
  *
  * @param String $file_full_path コントローラーのフルパス
  * @param String $method_name メソッド名
  */
-function controllerAction($file_full_path, $method_name) {
+function controllerAction($file_full_path) {
     $controller_full_path = str_replace('/', '\\', $file_full_path);
 
     require_once '../' . $file_full_path . '.php';
     $controller = new $controller_full_path;
-    $controller->$method_name();
+    $controller->action();
 }
