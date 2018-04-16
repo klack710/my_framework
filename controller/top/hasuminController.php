@@ -1,12 +1,12 @@
 <?php
 namespace controller\top;
 
-use controller\baseController;
-require_once 'controller/baseController.php';
+use controller\BaseController;
+require_once '../controller/BaseController.php';
 
-class hasuminController extends baseController
+class HasuminController extends BaseController
 {
-    const HTML_PATH = 'answer/hasumin.html';
+    const HTML_PATH = '../answer/hasumin.html';
 
     /**
      * テンプレートを読み込み、クエリに応じた処理を行った上で
