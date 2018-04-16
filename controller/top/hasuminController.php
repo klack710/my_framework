@@ -2,11 +2,11 @@
 namespace controller\top;
 
 use controller\BaseController;
-require_once 'controller/BaseController.php';
+require_once '../controller/BaseController.php';
 
 class HasuminController extends BaseController
 {
-    const HTML_PATH = 'answer/hasumin.html';
+    const HTML_PATH = '../answer/hasumin.html';
 
     /**
      * テンプレートを読み込み、クエリに応じた処理を行った上で

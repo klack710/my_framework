@@ -2,11 +2,11 @@
 namespace controller\top;
 
 use controller\BaseController;
-require_once 'controller/BaseController.php';
+require_once '../controller/BaseController.php';
 
 class OtherController extends BaseController
 {
-    const HTML_PATH = 'answer/other.html';
+    const HTML_PATH = '../answer/other.html';
 
     /**
      * テンプレートを読み込み、クエリに応じた処理を行った上で

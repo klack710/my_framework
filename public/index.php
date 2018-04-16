@@ -38,8 +38,8 @@ function getUriWithoutQuery() {
 function getControllerPathAndMethodName($uri) {
     // route.phpから、routesの情報を取得する
     $routes = [];
-    $routes_404 = ['controller/top/OtherController', 'action'];
-    require 'route/route.php';
+    $routes_404 = ['/controller/top/OtherController', 'action'];
+    require '../route/route.php';
 
     // routesから、コントローラーのパスとメソッド名を取得する
     if (array_key_exists($uri, $routes) && isset($routes[$uri][0]) && isset($routes[$uri][1])) {
@@ -66,7 +66,7 @@ function getControllerPathAndMethodName($uri) {
 function controllerAction($file_full_path, $method_name) {
     $controller_full_path = str_replace('/', '\\', $file_full_path);
 
-    require_once $file_full_path . '.php';
+    require_once '../' . $file_full_path . '.php';
     $controller = new $controller_full_path;
     $controller->$method_name();
 }
