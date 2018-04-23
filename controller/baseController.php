@@ -3,7 +3,37 @@ namespace controller;
 
 abstract class BaseController
 {
+    protected $dbh;
+
     abstract public function action();
+
+    /**
+     * データベースハンドルオブジェクトを$dbhにセットし、トランザクションを開始する
+     *
+     * @param Object $dbh PDO
+     */
+    public function connectionDb($dbh)
+    {
+        $this->dbh = $dbh;
+        /* トランザクションを開始する。オートコミットがオフになる */
+        $this->dbh->beginTransaction();
+    }
+
+    /**
+     * セットしたクエリをコミットする
+     */
+    public function commit()
+    {
+        $this->dbh->commit();
+    }
+
+    /**
+     * セットしたクエリをロールバックする
+     */
+    public function rollback()
+    {
+        $this->dbh->rollback();
+    }
 
     /**
      * 表示させるHTMLのテンプレートを文字列で読み込む
