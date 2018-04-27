@@ -4,14 +4,13 @@
 require_once '../vendor/getUriWithoutQuery.php';
 require_once '../vendor/getControllerPath.php';
 require_once '../vendor/getDbh.php';
-require_once '../vendor/getDbh.php';
 require_once '../vendor/instantiateController.php';
 
 // テーブル作成用
 // createTablePages();
 // function createTablePages() {
 //     $dbh = getDbh();
-//     $dbh->exec('CREATE TABLE Pages (id int, name nchar(255), create_date datetime)');;
+//     $dbh->exec('CREATE TABLE Pages (id int, name nchar(255), create_date datetime)');
 // }
 
 action();
