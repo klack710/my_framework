@@ -32,9 +32,9 @@ function getDbConnectionData()
     //     -> db_name
     $env_path = '../.env';
     $env_string = file_get_contents($env_path);
-    preg_match('/DB_DATABASE\s*=\s(.*)(\s|\z)/' ,$env_string, $database);
-    preg_match('/DB_USERNAME\s*=\s(.*)(\s|\z)/' ,$env_string, $username);
-    preg_match('/DB_PASSWORD\s*=\s(.*)(\s|\z)/' ,$env_string, $password);
+    preg_match('/DB_DATABASE\s*=\s*(.*)(\s|\z)/' ,$env_string, $database);
+    preg_match('/DB_USERNAME\s*=\s*(.*)(\s|\z)/' ,$env_string, $username);
+    preg_match('/DB_PASSWORD\s*=\s*(.*)(\s|\z)/' ,$env_string, $password);
 
     return [
         'database' => $database[1],
