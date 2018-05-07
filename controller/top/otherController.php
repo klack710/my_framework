@@ -16,11 +16,6 @@ class OtherController extends BaseController
      */
     public function action()
     {
-        /* SQL走らせる */
-        $sth = $this->dbh->prepare("INSERT INTO Pages VALUES(?, ?, ?)");
-        $sth->execute(array(1, 'Other', date('Y-m-d H:i:s')));
-        $sth->execute(array(2, 'Action', date('Y-m-d H:i:s')));
-
         $template = $this->loadTemplate(self::HTML_PATH);
 
         // テンプレートに書かれた{{}}を、クエリに応じて置き換える

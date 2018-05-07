@@ -1,10 +1,10 @@
 <?php
 namespace controller\top;
 
-use controller\BaseController;
-require_once '../controller/BaseController.php';
+use controller\BaseWithDbController;
+require_once '../controller/BaseWithDbController.php';
 
-class HasuminController extends BaseController
+class HasuminController extends BaseWithDbController
 {
     const HTML_PATH = '../answer/hasumin.html';
 

@@ -12,7 +12,7 @@ function getControllerPath($uri)
     // route.phpから、routesの情報を取得する
     $routes = [];
     $routes_404 = '/controller/top/OtherController';
-    require '../route/route.php';
+    require_once '../route/route.php';
 
     // routesから、コントローラーのパスを取得する
     if (array_key_exists($uri, $routes) && isset($routes[$uri][0])) {
