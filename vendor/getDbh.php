@@ -12,7 +12,7 @@ function getDbh()
                 $env_data['username'],
                 $env_data['password'],
                 array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         exit($e->getMessage());
     }
 
