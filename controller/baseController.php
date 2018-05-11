@@ -3,7 +3,7 @@ namespace controller;
 
 abstract class BaseController
 {
-   abstract public function action();
+   abstract protected function action();
 
     /**
      * index.phpが呼び出すメソッド。コントローラーの扱いが決まる

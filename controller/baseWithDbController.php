@@ -27,7 +27,7 @@ abstract class BaseWithDbController extends BaseController
             $this->dbh->beginTransaction();
             $this->action();
             $this->dbh->commit();
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             $this->dbh->rollback();
             exit($e->getMessage());
         }
