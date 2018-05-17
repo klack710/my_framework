@@ -12,7 +12,7 @@ function getDbh()
                 $env_data['username'],
                 $env_data['password'],
                 array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         exit($e->getMessage());
     }
 
@@ -27,18 +27,30 @@ function getDbh()
  */
 function getDbConnectionData()
 {
-    // .envを読み込み、DB接続に必要な情報を取得する
-    // 例) DB_DATABASE   = db_name
-    //     -> db_name
-    $env_path = '../.env';
-    $env_string = file_get_contents($env_path);
-    preg_match('/DB_DATABASE\s*=\s*(.*)(\s|\z)/' ,$env_string, $database);
-    preg_match('/DB_USERNAME\s*=\s*(.*)(\s|\z)/' ,$env_string, $username);
-    preg_match('/DB_PASSWORD\s*=\s*(.*)(\s|\z)/' ,$env_string, $password);
+    $database = getEnvData('DB_DATABASE');
+    $username = getEnvData('DB_USERNAME');
+    $password = getEnvData('DB_PASSWORD');
 
     return [
-        'database' => $database[1],
-        'username' => $username[1],
-        'password' => $password[1],
+        'database' => $database,
+        'username' => $username,
+        'password' => $password,
     ];
+}
+
+/**
+ * .envを読み込み、DB接続に必要な情報を取得する
+ * 例) DB_DATABASE   = db_name
+ *     -> db_name
+ *
+ * @return String 条件にマッチした文字列
+ */
+function getEnvData($key)
+{
+    $env_path = '../.env';
+    $env_string = file_get_contents($env_path);
+    $pattern = '/' . $key .'\s*=\s*(.*)(\s|\z)/';
+    preg_match($pattern ,$env_string, $data);
+
+    return $data[1];
 }
