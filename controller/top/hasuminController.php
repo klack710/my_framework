@@ -4,7 +4,6 @@ namespace controller\top;
 use Exception;
 use controller\BaseWithDbController;
 require_once '../controller/BaseWithDbController.php';
-require_once '../vendor/validate.php';
 
 class HasuminController extends BaseWithDbController
 {

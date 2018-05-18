@@ -1,6 +1,8 @@
 <?php
 namespace controller;
 
+require_once '../vendor/validate.php';
+
 abstract class BaseController
 {
     abstract protected function action();
@@ -28,7 +30,7 @@ abstract class BaseController
 
     /**
      * POSTが送られた時に使用する関数
-     * ユーザーがPSOTを使用する時はオーバーライドする
+     * ユーザーがPOSTを使用する時はオーバーライドする
      *
      */
     protected function postAction($requestdata)
