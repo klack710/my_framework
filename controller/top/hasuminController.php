@@ -40,7 +40,7 @@ class HasuminController extends BaseWithDbController
     {
         $template = $this->loadTemplate(self::HTML_PATH);
 
-        validate($requestdata, [
+        $this->validate($requestdata, [
             'id'     => ['int', 'alpha'],
             'hasvar' => ['alpha']
         ]);

@@ -1,10 +1,14 @@
 <?php
 namespace controller;
 
-require_once '../vendor/validate.php';
+require_once '../vendor/ValidateTrait.php';
+
+use vendor\ValidateTrait;
 
 abstract class BaseController
 {
+    use ValidateTrait;
+
     abstract protected function action();
 
     /**
@@ -35,7 +39,7 @@ abstract class BaseController
      */
     protected function postAction($requestdata)
     {
-        $this->action();
+        return $this->action();
     }
 
     /**
