@@ -35,7 +35,7 @@ abstract class BaseController
      */
     protected function postAction($requestdata)
     {
-        return $this->action();
+        $this->action();
     }
 
     /**

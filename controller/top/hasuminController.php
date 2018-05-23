@@ -58,5 +58,4 @@ class HasuminController extends BaseWithDbController
 
         return $this->showPage($replaced_template);
     }
-
 }
