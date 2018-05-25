@@ -34,6 +34,7 @@ class HasuminController extends BaseWithDbController
      * テンプレートを読み込み、クエリに応じた処理を行った上で
      * 画面に表示させる。
      *
+     * @param Array $requestdata ユーザーのPOSTデータ
      * @return boolean 画面に表示が出来たかどうか
      */
     public function postAction($requestdata)
