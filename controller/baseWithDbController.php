@@ -1,6 +1,7 @@
 <?php
 namespace controller;
 
+use Exception;
 use controller\BaseController;
 require_once '../vendor/getDbh.php';
 require_once '../controller/BaseController.php';
@@ -17,7 +18,7 @@ abstract class BaseWithDbController extends BaseController
     /**
      * index.phpが呼び出すメソッド。コントローラーの扱いが決まる
      * このコントローラーでは、DBの接続・コミット・ロールバックを行い、
-     * actionを呼び出す。
+     * switchActionを呼び出す。
      */
     public function exec()
     {
@@ -25,10 +26,12 @@ abstract class BaseWithDbController extends BaseController
         // エラーが出たらロールバックしてエラーメッセージを表示
         try {
             $this->dbh->beginTransaction();
-            $this->action();
+            $this->switchAction();
             $this->dbh->commit();
         } catch (Exception $e) {
             $this->dbh->rollback();
+
+            header("HTTP/1.1 500 Internal Server Error");
             exit($e->getMessage());
         }
     }

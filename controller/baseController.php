@@ -1,17 +1,45 @@
 <?php
 namespace controller;
 
+require_once '../vendor/ValidateTrait.php';
+
+use vendor\ValidateTrait;
+
 abstract class BaseController
 {
-   abstract protected function action();
+    use ValidateTrait;
+
+    abstract protected function action();
 
     /**
      * index.phpが呼び出すメソッド。コントローラーの扱いが決まる
-     * このコントローラーでは、actionを呼び出す。
+     * このコントローラーでは、switchActionを呼び出す。
      */
     public function exec()
     {
-        $this->action();
+        $this->switchAction();
+    }
+
+    /**
+     * 使用するaction関数を使い分ける
+     */
+    protected function switchAction()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->postAction($_POST);
+        } else {
+            $this->action();
+        }
+    }
+
+    /**
+     * POSTが送られた時に使用する関数
+     * ユーザーがPOSTを使用する時はオーバーライドする
+     *
+     */
+    protected function postAction($requestdata)
+    {
+        return $this->action();
     }
 
     /**
@@ -37,13 +65,15 @@ abstract class BaseController
      * クエリのキーに応じて置き換える
      *
      * @param String $template テンプレートのhtml
+     * @package Array $pattern
      * @return String $template 置換後のテンプレートのhtml
      */
-    protected function replaceTemplate($template)
+    protected function replaceTemplate($template, $pattern = [])
     {
-        $get_array = $_GET;
-
-        foreach($get_array as $key => $item) {
+        if ($pattern == []) {
+            $pattern = $_GET;
+        }
+        foreach($pattern as $key => $item) {
             // {{ }}内のkeyの文字列を、itemに変える
             // keyが正しくない場合はそのまま
             // 例: {{ key }} → item
