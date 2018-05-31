@@ -30,6 +30,8 @@ abstract class BaseWithDbController extends BaseController
             $this->dbh->commit();
         } catch (Exception $e) {
             $this->dbh->rollback();
+
+            header("HTTP/1.1 500 Internal Server Error");
             exit($e->getMessage());
         }
     }

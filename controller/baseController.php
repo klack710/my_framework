@@ -25,7 +25,7 @@ abstract class BaseController
      */
     protected function switchAction()
     {
-        if (count($_POST)) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->postAction($_POST);
         } else {
             $this->action();

@@ -41,6 +41,7 @@ class HasuminController extends BaseWithDbController
     {
         $template = $this->loadTemplate(self::HTML_PATH);
 
+        //(TODO)第二引数でエラーを配列で返すように設定する
         $this->validate($requestdata, [
             'id'     => ['int', 'alpha'],
             'hasvar' => ['alpha']

@@ -49,6 +49,7 @@ trait ValidateTrait
             }
         }
 
+        // (TODO)エラーを投げるか、配列で返すか検討
         // エラーの表示
         if ($error) {
             foreach ($error as $key => $validates) {
