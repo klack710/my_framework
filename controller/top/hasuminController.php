@@ -2,7 +2,9 @@
 namespace controller\top;
 
 use Exception;
+use Model\Model;
 use controller\BaseWithDbController;
+require_once '../Model/model.php';
 require_once '../controller/BaseWithDbController.php';
 
 class HasuminController extends BaseWithDbController
@@ -17,6 +19,12 @@ class HasuminController extends BaseWithDbController
      */
     public function action()
     {
+        //なんのもでる？
+        $users = new Model('Users');
+        $select = $users->select();
+
+        var_dump($select);
+
         /* SQL走らせる */
         $sth = $this->dbh->prepare("INSERT INTO Pages VALUES(?, ?, ?)");
         $sth->execute(array(1, 'Hasumin', date('Y-m-d H:i:s')));

@@ -1,7 +1,7 @@
 <?php
 /**
  * PDOのデータベースハンドルを取得する
- *
+ * (PDO)関数名をPDOとか、接続したという内容も含む
  * @return Object $dbh PDO
  */
 function getDbh()
