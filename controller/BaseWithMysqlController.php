@@ -2,17 +2,22 @@
 namespace controller;
 
 use Exception;
-use controller\BaseController;
-require_once '../vendor/getDbh.php';
-require_once '../controller/BaseController.php';
 
-abstract class BaseWithDbController extends BaseController
+require_once __DIR__.'/BaseController.php';
+use controller\BaseController;
+
+require_once '../vendor/GetPdoObjectTrait.php';
+use vendor\GetPdoObjectTrait;
+
+
+abstract class BaseWithMysqlController extends BaseController
 {
+    use GetPdoObjectTrait;
     protected $dbh;
 
     public function __construct()
     {
-        $this->dbh = getDbh();
+        $this->dbh = $this->getConnectedMysqlDbh();
     }
 
     /**
@@ -31,6 +36,8 @@ abstract class BaseWithDbController extends BaseController
         } catch (Exception $e) {
             $this->dbh->rollback();
 
+            // (TODO)サーバーエラーと表示させて、エラー内容を表示させない
+            // 現在はデバッグのためにエラーメッセージを表示
             header("HTTP/1.1 500 Internal Server Error");
             exit($e->getMessage());
         }

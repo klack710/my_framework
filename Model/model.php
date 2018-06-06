@@ -1,39 +1,77 @@
 <?php
 
-namespace Model;
+namespace model;
+
+use PDO;
 
 class Model
 {
     protected $dbh;
-    protected $table;
+    protected $table_name;
+    protected $sql = '';
+    protected $param = [];
 
-    public function __construct($table)
+    public function __construct($dbh)
     {
-        $this->dbh = getDbh();
-        $this->table = $table;
+        $this->dbh = $dbh;
+        // class名をnamespaceを取り除いて取得
+        $this->table_name = basename(strtr(get_class($this), '\\', '/'));
     }
 
     /**
-     * テンプレートを読み込み、クエリに応じた処理を行った上で
-     * 画面に表示させる。
+     * sqlにselect文を加える
      *
      * @param array 読み込むカラム
-     * @return boolean 画面に表示が出来たかどうか
      */
-    public function select($column = [])
+    public function select($columns = ['*'], $where = [])
     {
+        $this->sql = 'SELECT ' . implode($columns, ', ') . ' FROM ' . $this->table_name;
 
-        if ($column == []) {
-            $sth = $this->dbh->prepare('SELECT * FROM ' . $this->table);
-            $sth->execute();
-        } else {
-            // $column_count = count($column);
-            // // columnの個数だけ?を増やす
-            // $sth = $this->dbh->prepare('SELECT ? FROM ' . $this->table);
-            // $sth->execute(array($column));
-        }
-
-        return $sth->fetchAll();
+        return $this;
     }
 
+    public function insert($data = [])
+    {
+        $this->sql = 'INSERT INTO ' . $this->table_name . ' (' . implode(array_keys($data), ', ') . ')';
+        //prepareの名前パラメータマークに加工する
+        $data_for_param = [];
+        foreach($data as $key => $data) {
+            $data_for_param[':insert_'.$key ] = $data;
+        }
+        //名前パラメータマークをSQLに追加
+        $this->sql .= ' VALUES(' . implode(array_keys($data_for_param), ', ') .')';
+        $this->param = array_merge($this->param, $data_for_param);
+
+        return $this;
+    }
+
+    public function where($column, $compare_tag, $param)
+    {
+        //prepareの名前パラメータマークに加工する
+        //名前がかぶらないように、sqlの長さでラベル付けする
+        $data_for_param = [':where_'.strlen($this->sql) => $param];
+        $this->sql .= ' WHERE ' . $column . ' ' .  $compare_tag . ' ' . key($data_for_param);
+        $this->param = array_merge($this->param, $data_for_param);
+
+        return $this;
+    }
+
+    public function execute()
+    {
+        $sth = $this->dbh->prepare($this->sql);
+        $sth->execute($this->param);
+        // 動作をしたら初期化
+        $this->sql = '';
+        $this->param = [];
+    }
+
+    public function get()
+    {
+        $sth = $this->dbh->prepare($this->sql);
+        $sth->execute($this->param);
+        // 動作をしたら初期化
+        $this->sql = '';
+        $this->param = [];
+        return $sth->fetchAll(PDO::FETCH_CLASS);
+    }
 }

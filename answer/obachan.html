@@ -7,11 +7,14 @@
     <title>Obachan</title>
 </head>
 <body>
-<p>元気です！</p>
-<p>{{ obavar }}</p>
-<p>{{}}</p>
-<p>{{  }}</p>
-<p>{{ obavar }}</p>
-<p>{{ obavar obavar obavar }}</p>
+    <form action="" method="post">
+        <div>
+            <label for="id">id:</label>
+            <input type="text" id="id" name="id"/>
+        </div>
+        <input type="submit" value="送信"><input type="reset" value="リセット">
+    </form>
+    <p>id:{{ id }}</p>
+    <p>value:{{ value }}</p>
 </body>
 </html>

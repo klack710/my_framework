@@ -1,6 +1,7 @@
 <?php
 namespace controller;
 
+use Exception;
 require_once '../vendor/ValidateTrait.php';
 
 use vendor\ValidateTrait;

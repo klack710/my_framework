@@ -1,13 +1,13 @@
 <?php
 namespace controller\top;
 
-use Exception;
-use Model\Model;
-use controller\BaseWithDbController;
-require_once '../Model/model.php';
-require_once '../controller/BaseWithDbController.php';
+require_once __DIR__.'/../../model/Pages.php';
+use model\Pages;
+require_once __DIR__.'/../../model/Hasvars.php';
+use model\Hasvars;
+use controller\BaseWithMysqlController;
 
-class HasuminController extends BaseWithDbController
+class HasuminController extends BaseWithMysqlController
 {
     const HTML_PATH = '../answer/hasumin.html';
 
@@ -19,16 +19,11 @@ class HasuminController extends BaseWithDbController
      */
     public function action()
     {
-        //なんのもでる？
-        $users = new Model('Users');
-        $select = $users->select();
+        $Pages = new Pages($this->dbh);
+        $select = $Pages->select()->where('id', '=', 5)->get();
 
-        var_dump($select);
-
-        /* SQL走らせる */
-        $sth = $this->dbh->prepare("INSERT INTO Pages VALUES(?, ?, ?)");
-        $sth->execute(array(1, 'Hasumin', date('Y-m-d H:i:s')));
-        $sth->execute(array(2, 'Action', date('Y-m-d H:i:s')));
+        $Pages->insert(['id' => 5, 'name' => 'Hasumin', 'created_at' => date('Y-m-d H:i:s')])->execute();
+        $Pages->insert(['id' => 5, 'name' => 'Hasumin', 'created_at' => date('Y-m-d H:i:s')])->execute();
 
         $template = $this->loadTemplate(self::HTML_PATH);
 
@@ -51,14 +46,11 @@ class HasuminController extends BaseWithDbController
 
         //(TODO)第二引数でエラーを配列で返すように設定する
         $this->validate($requestdata, [
-            'id'     => ['int', 'alpha'],
             'hasvar' => ['alpha']
         ]);
 
-        /* SQL走らせる */
-        $sth = $this->dbh->prepare("INSERT INTO Pages VALUES(?, ?, ?)");
-        $sth->execute(array($requestdata['id'], $requestdata['hasvar'], date('Y-m-d H:i:s')));
-        $sth->execute(array(2, 'postAction', date('Y-m-d H:i:s')));
+        $Hasvars = new Hasvars($this->dbh);
+        $Hasvars->insert(['hasvar' => $requestdata['hasvar'], 'created_at' => date('Y-m-d H:i:s')])->execute();
 
         // データの取得
         $pattern = $requestdata;

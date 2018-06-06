@@ -37,14 +37,12 @@ trait ValidateTrait
                         default:
                             // (TODO)logの書き出し
                             // $option_key . 'というバリデーションは存在しません'
-                            header("HTTP/1.1 500 Internal Server Error");
                             throw new Exception('500 Internal Server Error');
                     }
                 }
             } else {
                 // (TODO)logの書き出し
                 // $array_key . 'というキーのバリデーションが設定されていません'
-                header("HTTP/1.1 500 Internal Server Error");
                 throw new Exception('500 Internal Server Error');
             }
         }

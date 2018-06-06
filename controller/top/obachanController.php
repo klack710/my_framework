@@ -1,10 +1,13 @@
 <?php
 namespace controller\top;
 
-use controller\BaseWithDbController;
-require_once '../controller/BaseWithDbController.php';
+require_once __DIR__.'/../../model/Pages.php';
+use model\Pages;
+require_once __DIR__.'/../../model/Hasvars.php';
+use model\Hasvars;
+use controller\BaseWithMysqlController;
 
-class ObachanController extends BaseWithDbController
+class ObachanController extends BaseWithMysqlController
 {
     const HTML_PATH = '../answer/obachan.html';
 
@@ -16,15 +19,41 @@ class ObachanController extends BaseWithDbController
      */
     public function action()
     {
-        /* SQL走らせる */
-        $sth = $this->dbh->prepare("INSERT INTO Pages VALUES(?, ?, ?)");
-        $sth->execute(array(1, 'Obachan', date('Y-m-d H:i:s')));
-        $sth->execute(array(2, 'Action', date('Y-m-d H:i:s')));
+        $Pages = new Pages($this->dbh);
+        $Pages->insert(['id' => 1, 'name' => 'Obachan', 'created_at' => date('Y-m-d H:i:s')])->execute();
 
         $template = $this->loadTemplate(self::HTML_PATH);
 
         // テンプレートに書かれた{{}}を、クエリに応じて置き換える
         $replaced_template = $this->replaceTemplate($template);
+
+        return $this->showPage($replaced_template);
+    }
+
+    /**
+     * テンプレートを読み込み、クエリに応じた処理を行った上で
+     * 画面に表示させる。
+     *
+     * @param Array $requestdata ユーザーのPOSTデータ
+     * @return boolean 画面に表示が出来たかどうか
+     */
+    public function postAction($requestdata)
+    {
+        $template = $this->loadTemplate(self::HTML_PATH);
+
+        //(TODO)第二引数でエラーを配列で返すように設定する
+        $this->validate($requestdata, [
+            'id'     => ['int'],
+        ]);
+
+        $Hasvars = new Hasvars($this->dbh);
+        $select = $Hasvars->getFirstDataFromId($requestdata['id']);
+
+        // データの取得
+        $pattern = ['id' => $select->id, 'value' => $select->hasvar];
+
+        // テンプレートに書かれた{{}}を、クエリに応じて置き換える
+        $replaced_template = $this->replaceTemplate($template, $pattern);
 
         return $this->showPage($replaced_template);
     }
