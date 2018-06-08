@@ -1,8 +1,8 @@
 <?php
 
-namespace model;
+namespace Model;
 
-use model\Model;
+use Model\Model;
 
 class Pages extends Model
 {

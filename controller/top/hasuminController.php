@@ -19,11 +19,9 @@ class HasuminController extends BaseWithMysqlController
      */
     public function action()
     {
-        $Pages = new Pages($this->dbh);
-        $select = $Pages->select()->where('id', '=', 5)->get();
+        $pages = new Pages($this->dbh);
 
-        $Pages->insert(['id' => 5, 'name' => 'Hasumin', 'created_at' => date('Y-m-d H:i:s')])->execute();
-        $Pages->insert(['id' => 5, 'name' => 'Hasumin', 'created_at' => date('Y-m-d H:i:s')])->execute();
+        $pages->insert(['id' => 5, 'name' => 'Hasumin', 'created_at' => date('Y-m-d H:i:s')])->execute();
 
         $template = $this->loadTemplate(self::HTML_PATH);
 
@@ -49,8 +47,8 @@ class HasuminController extends BaseWithMysqlController
             'hasvar' => ['alpha']
         ]);
 
-        $Hasvars = new Hasvars($this->dbh);
-        $Hasvars->insert(['hasvar' => $requestdata['hasvar'], 'created_at' => date('Y-m-d H:i:s')])->execute();
+        $hasvars = new Hasvars($this->dbh);
+        $hasvars->insert(['hasvar' => $requestdata['hasvar'], 'created_at' => date('Y-m-d H:i:s')])->execute();
 
         // データの取得
         $pattern = $requestdata;

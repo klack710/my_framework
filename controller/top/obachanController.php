@@ -19,8 +19,8 @@ class ObachanController extends BaseWithMysqlController
      */
     public function action()
     {
-        $Pages = new Pages($this->dbh);
-        $Pages->insert(['id' => 1, 'name' => 'Obachan', 'created_at' => date('Y-m-d H:i:s')])->execute();
+        $pages = new Pages($this->dbh);
+        $pages->insert(['id' => 1, 'name' => 'Obachan', 'created_at' => date('Y-m-d H:i:s')])->execute();
 
         $template = $this->loadTemplate(self::HTML_PATH);
 
@@ -46,11 +46,11 @@ class ObachanController extends BaseWithMysqlController
             'id'     => ['int'],
         ]);
 
-        $Hasvars = new Hasvars($this->dbh);
-        $select = $Hasvars->getFirstDataFromId($requestdata['id']);
+        $hasvars = new Hasvars($this->dbh);
+        $result = $hasvars->getFirstDataFromId($requestdata['id']);
 
         // データの取得
-        $pattern = ['id' => $select->id, 'value' => $select->hasvar];
+        $pattern = ['id' => $result->id, 'value' => $result->hasvar];
 
         // テンプレートに書かれた{{}}を、クエリに応じて置き換える
         $replaced_template = $this->replaceTemplate($template, $pattern);
